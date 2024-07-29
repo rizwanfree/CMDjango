@@ -10,11 +10,9 @@ __pycache__/
 */migrations/*
 
 # Django static files
-staticfiles/
-static/
 
 # Django media files
-media/
+
 
 # Django settings (if you keep sensitive settings in a local file)
 settings_local.py
