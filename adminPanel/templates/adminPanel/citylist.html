@@ -1,1 +1,8 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+
+<h1>CityList</h1>
+
+{% for c in cities %}
+
+<h3>{{c.city_name}}</h3>
+{% endfor %} {% endblock content %}
