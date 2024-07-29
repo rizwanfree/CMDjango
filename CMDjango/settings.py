@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 
     'website',
-    'adminPanel'
+    'adminPanel',
+    'Client'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+#CORS_ORIGIN_ALLOW_ALL = True  # This allows all origins, for development purposes
 
 ROOT_URLCONF = 'CMDjango.urls'
 

@@ -1,0 +1,67 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+
+<style>
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .action-buttons .btn {
+    flex: 1;
+    margin: 0 2px;
+  }
+</style>
+
+<div class="mt-5">
+  <div class="mb-4">
+    <a class="btn btn-primary">Add New Client</a>
+  </div>
+  <table id="myTable" class="table table-primary table-bordered table-hover">
+    <thead class="text-center">
+      <tr class="">
+        <th>Client Name</th>
+        <th>Contact Person</th>
+        <th>Phone</th>
+        <th>Mobile</th>
+        <th>Email</th>
+        <th>City</th>
+      </tr>
+    </thead>
+  </table>
+</div>
+
+<script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+<!--
+<script src="{% static "js/Client.js" %}"></script>
+-->
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#myTable").DataTable({
+      ajax: {
+        url: "/Client/api/clients/",
+        dataSrc: "",
+      },
+      columns: [
+        { data: "client_name" },
+        { data: "contact_person" },
+        { data: "phone_number" },
+        { data: "mobile_number" },
+        { data: "email" },
+        { data: "city.city_name" },
+        {
+          data: "id",
+          render: function (data) {
+            return `
+                    <div class="action-buttons">
+                        <a href="" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="#" class="btn btn-sm btn-info">Details</a>
+                    </div>
+            `;
+          },
+        },
+      ],
+    });
+  });
+</script>
+
+{% endblock content %}
