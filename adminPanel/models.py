@@ -15,6 +15,29 @@ class Port(models.Model):
     id = models.AutoField(primary_key=True)
     port_name = models.CharField(max_length=250, unique=True)
     short_name = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=50, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+
+    def __str__(self):
+        return self.short_name
+    
+class Terminal(models.Model):
+    id = models.AutoField(primary_key=True)
+    terminal_name = models.CharField(max_length=250, unique=True)
+    short_name = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=50, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    port = models.ForeignKey(Port, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.short_name
+    
+class ShippingLine(models.Model):
+    id = models.AutoField(primary_key=True)
+    line_name = models.CharField(max_length=250, unique=True)
+    short_name = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=50, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
         return self.short_name
@@ -25,7 +48,7 @@ class IGM(models.Model):
     igm_number = models.IntegerField()
     igm_date = models.DateField()
     vessel = models.CharField(max_length=200)
-    port_id = models.ForeignKey(Port, on_delete=models.CASCADE)
+    port = models.ForeignKey(Port, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.igm_number}/{self.igm_date.year}"

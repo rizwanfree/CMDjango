@@ -85,6 +85,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'koyebdb',
+        # 'USER': 'django-admin',
+        # 'PASSWORD': '8xHBeFaqc2kQ',
+        # 'HOST': 'ep-long-morning-a2zhkn1k.eu-central-1.pg.koyeb.app',
+        # 'OPTIONS': {'sslmode': 'require'},
     }
 }
 
