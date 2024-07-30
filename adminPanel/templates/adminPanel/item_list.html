@@ -13,9 +13,16 @@
 
 <div class="mt-5">
   <div class="mb-4">
-    <a class="btn btn-primary" href="{% url 'client:client_add' %}"
-      >Add New Item</a
-    >
+    <div class="mb-4">
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#addItemModal"
+      >
+        Add New Item
+      </button>
+    </div>
   </div>
   <table
     id="itemTable"
@@ -38,6 +45,79 @@
     </thead>
     <tbody></tbody>
   </table>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade modal-lg"
+  id="addItemModal"
+  tabindex="-1"
+  aria-labelledby="addItemModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="addItemModalLabel">Add New Item</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          id="addItemForm"
+          method="post"
+          action="{% url 'adminPanel:add_item' %}"
+        >
+          {% csrf_token %}
+
+          <div class="row m-1">
+            <div class="col-4">
+              <label class="control-label">Item Name</label>
+            </div>
+            <div class="col-8">{{form.item_name}}</div>
+          </div>
+          <div class="row m-1">
+            <div class="col-4">
+              <label class="control-label">H.S.Code</label>
+            </div>
+            <div class="col-8">{{form.hs_code}}</div>
+          </div>
+
+          <hr />
+          <h5 class="text-center">Duty Structure</h5>
+          <hr />
+
+          <div class="row m-1">
+            <div class="col-6">
+              <label class="control-label">Custom Duty</label>
+            </div>
+            <div class="col-2">{{form.custom_duty_type}}</div>
+            <div class="col-4">{{form.custom_duty_rate}}</div>
+          </div>
+
+          <div class="row m-1">
+            <div class="col-7">
+              <label class="control-label">Additional Custom Duty</label>
+            </div>
+            <div class="col-2">{{form.custom_duty_type}}</div>
+            <div class="col-3">{{form.custom_duty_rate}}</div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="submit" form="addItemForm" class="btn btn-primary">
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- jQuery -->

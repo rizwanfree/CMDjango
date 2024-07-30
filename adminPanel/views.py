@@ -3,9 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from .Serializer import ItemDataTableSerializer
 
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 from .models import Item, City
+from .forms import ItemForm
 
 
 # API CALLS
@@ -29,6 +30,18 @@ def CityList(request):
      }
      return render(request, 'adminPanel/citylist.html', context)
 
+# Item Model Functions
+
 def ItemList(request):
-     
-     return render(request, 'adminPanel/item_list.html')
+     form = ItemForm()  
+     return render(request, 'adminPanel/item_list.html', {'form': form})
+
+def AddItem(request):
+    if request.method == 'POST':
+        form = ItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('adminPanel:item_list')  # Redirect to a list view or any other view
+    else:
+        form = ItemForm()
+    return render(request, 'adminPanel/add_item.html', {'form': form})
