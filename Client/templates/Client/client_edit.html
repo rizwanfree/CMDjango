@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+    <input type="hidden" />
+
+    <div class="card border-secondary mb-3" style="max-width: 100%">
+      <div class="card-header">
+        <h4 class="card-title">Client Information</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group col-sm-7">
+            <label class="control-label">Client Name</label>
+            {{form.client_name}}
+          </div>
+
+          <div class="form-group col-sm-5">
+            <label class="control-label">Contact Person</label>
+            {{form.contact_person}}
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="form-group col-sm-4">
+            <label class="control-label">Phone Number</label>
+            {{form.phone_number}}
+          </div>
+          <div class="form-group col-sm-4">
+            <label class="control-label">Mobile Number</label>
+            {{form.mobile_number}}
+          </div>
+          <div class="form-group col-sm-4">
+            <label class="control-label">Email Address</label>
+            {{form.email}}
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="form-group col-sm-6">
+            <label class="control-label">Address</label>
+            {{form.address}}
+          </div>
+          <div class="form-group col-sm-2">
+            <label class="control-label">City</label>
+            {{form.city}}
+          </div>
+          <div class="form-group col-sm-2">
+            <label class="control-label">Client Type</label>
+            {{form.client_type}}
+          </div>
+          <div class="form-group col-sm-2">
+            <label class="control-label">Soap Manufacturer</label>
+            <div class="d-flex justify-content-center align-items-center mt-2">
+              {{ form.soap_manufacturer }}
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="form-group col-sm-2">
+            <label class="control-label">NTN</label>
+            {{form.ntn}}
+          </div>
+
+          <div class="form-group col-sm-2">
+            <label class="control-label">GST</label>
+            {{form.gst}}
+          </div>
+
+          <div class="form-group col-sm-2">
+            <label class="control-label">Director Name</label>
+            {{form.director_name}}
+          </div>
+          <div class="form-group col-sm-2">
+            <label class="control-label">Director CNIC</label>
+            {{form.nic}}
+          </div>
+          <div class="form-group col-sm-4">
+            <label class="control-label">Director Address</label>
+            {{form.director_address}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

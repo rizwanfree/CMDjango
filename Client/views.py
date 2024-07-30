@@ -2,8 +2,10 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .Serializer import ClientDataTableSerializer
+from .forms import ClientForm
 
-from django.shortcuts import render
+from django.shortcuts import redirect, render, get_object_or_404
+from django.contrib import messages
 
 from .models import Client
 
@@ -24,3 +26,33 @@ def ClientList(request):
         'clients': clients
     }
     return render(request, 'Client/client_list.html', context)
+
+def ClientDetails(request, id):
+    client = get_object_or_404(Client, id=id)
+
+    context = {
+        'client': client
+    }
+    return render(request, 'Client/client_details.html', context)
+
+
+def ClientEdit(request, id=None):
+    if id:
+        # Editing an existing client
+        client = get_object_or_404(Client, id=id)
+        form = ClientForm(request.POST or None, instance=client)
+    else:
+        # Creating a new client
+        form = ClientForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Client saved successfully.')
+            return redirect('client:client_list')  # Redirect to a list view or any other view as needed
+
+    context = {
+        'form': form,
+        'id': id,
+    }
+    return render(request, 'client/client_edit.html', context)
