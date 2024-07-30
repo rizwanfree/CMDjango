@@ -38,5 +38,48 @@
     <script src="https://cdn.datatables.net/2.1.2/js/dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Toastr Configuration -->
+    <script type="text/javascript">
+      // Configuration for Toastr notifications
+      toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "100",
+        "hideDuration": "200",
+        "timeOut": "1000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      };
+
+      // Function to show Toastr messages
+      function showToastrMessages() {
+        {% if messages %}
+          {% for message in messages %}
+            {% if message.tags == 'success' %}
+              toastr.success('{{ message.message }}', 'Success');
+            {% elif message.tags == 'warning' %}
+              toastr.warning('{{ message.message }}', 'Warning');
+            {% elif message.tags == 'error' %}
+              toastr.error('{{ message.message }}', 'Error');
+            {% elif message.tags == 'info' %}
+              toastr.info('{{ message.message }}', 'Information');
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      }
+
+      // Call the function to display messages
+      document.addEventListener('DOMContentLoaded', function() {
+        showToastrMessages();
+      });
+    </script>
   </body>
 </html>

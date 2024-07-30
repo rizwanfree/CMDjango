@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url "adminPanel:Home" %}">Custom Master</a>
     <button
@@ -30,28 +30,15 @@
             <a class="dropdown-item" href="#">Terminals</a>
             <a class="dropdown-item" href="#">Shipping Lines</a>
             <a class="dropdown-item" href="#">Ports</a>
-            <a class="dropdown-item" href="#">Items</a>
+            <a class="dropdown-item" href="{% url "adminPanel:item_list" %}">Items</a>
             <a class="dropdown-item" href="{% url "adminPanel:citylist" %}">Cities</a>
           </div>
         </li>
         <!--End Settings-->
 
         <!--Clients-->
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            data-bs-toggle="dropdown"
-            href="#"
-            role="button"
-            aria-haspopup="true"
-            aria-expanded="false"
-            >Client Management</a
-          >
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="{% url "client:client_list" %}">Client List</a>
-            <a class="dropdown-item" href="#">Add New Client</a>
-            <a class="dropdown-item" href="#">Client Ledger</a>
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url "client:client_list" %}">Client Management</a>
         </li>
         <!--End Settings-->
 

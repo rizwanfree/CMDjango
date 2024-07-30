@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .Serializer import ClientDataTableSerializer
+from django.views.decorators.http import require_POST
 from .forms import ClientForm
 
 from django.shortcuts import redirect, render, get_object_or_404
@@ -56,3 +57,10 @@ def ClientEdit(request, id=None):
         'id': id,
     }
     return render(request, 'client/client_edit.html', context)
+
+@require_POST
+def DeleteClient(request, pk):
+    client = get_object_or_404(Client, pk=pk)
+    client.delete()
+    messages.success(request, 'Client deleted successfully.')
+    return redirect('client:client_list')  # Redirect to the client list or another appropriate page

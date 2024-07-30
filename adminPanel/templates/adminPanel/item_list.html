@@ -1,0 +1,166 @@
+{% extends "base.html" %} {% block content %}
+
+<style>
+  .action-buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+  .action-buttons .btn {
+    flex: 1;
+    margin: 0 2px;
+  }
+</style>
+
+<div class="mt-5">
+  <div class="mb-4">
+    <a class="btn btn-primary" href="{% url 'client:client_add' %}"
+      >Add New Item</a
+    >
+  </div>
+  <table
+    id="itemTable"
+    class="table table-small table-primary table-bordered table-hover table-striped"
+  >
+    <thead>
+      <tr>
+        <th class="text-center">Description</th>
+        <th class="text-center">H.S.Code</th>
+        <th class="text-center">Custom Duty</th>
+        <th class="text-center">Add Custom Duty</th>
+        <th class="text-center">Regulatory Duty</th>
+        <th class="text-center">Sales Tax</th>
+        <th class="text-center">Add Sales Tax</th>
+        <th class="text-center">Income Tax</th>
+        <th class="text-center">PSQC</th>
+        <th class="text-center">Wharfage</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- DataTables CSS -->
+<link
+  rel="stylesheet"
+  href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"
+/>
+<!-- DataTables JS -->
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#itemTable").DataTable({
+      ajax: {
+        url: "http://127.0.0.1:8000/adminpanel/api/itemlist/",
+        dataSrc: "",
+      },
+      columns: [
+        { data: "item_name" },
+        { data: "hs_code", className: "text-center" },
+        {
+          data: null,
+          className: "text-center",
+          render: function (data, type, row) {
+            return data.custom_duty_rate === "0.00" ||
+              data.custom_duty_rate === null
+              ? ""
+              : `${data.custom_duty_rate} ${data.custom_duty_type}`;
+          },
+        },
+        {
+          data: null,
+          className: "text-center",
+          render: function (data, type, row) {
+            return data.additional_custom_duty_rate === "" ||
+              data.additional_custom_duty_rate === "0.00" ||
+              data.additional_custom_duty_rate === null
+              ? ""
+              : `${data.additional_custom_duty_rate} ${data.additional_custom_duty_type}`;
+          },
+        },
+        {
+          data: null,
+          className: "text-center",
+          render: function (data, type, row) {
+            return data.regulatory_duty_rate === "" ||
+              data.regulatory_duty_rate === "0.00" ||
+              data.regulatory_duty_rate === null
+              ? ""
+              : `${data.regulatory_duty_rate} ${data.regulatory_duty_type}`;
+          },
+        },
+        {
+          data: null,
+          className: "text-center",
+          render: function (data, type, row) {
+            return data.sales_tax_rate === "0.00" ||
+              data.sales_tax_rate === null
+              ? ""
+              : `${data.sales_tax_rate} %`;
+          },
+        },
+
+        {
+          data: null,
+          className: "text-center",
+          render: function (data, type, row) {
+            // Check if data.custom_duty_rate is 0 or null
+            if (
+              data.additional_sales_tax_rate === null ||
+              data.additional_sales_tax_rate === "0.00"
+            ) {
+              return ""; // Return empty string to display empty cell
+            }
+            // Format and return the value if not 0 or null
+            return `${data.additional_sales_tax_rate} %`;
+          },
+        },
+        {
+          data: null,
+          className: "text-center",
+          render: function (data, type, row) {
+            return data.income_tax_rate === "0.00" ||
+              data.income_tax_rate === null
+              ? ""
+              : `${data.income_tax_rate} %`;
+          },
+        },
+        {
+          data: null,
+          className: "text-center",
+          render: function (data, type, row) {
+            return data.psqc_rate === "0.00" || data.psqc_rate === null
+              ? ""
+              : `${data.psqc_rate} %`;
+          },
+        },
+        {
+          data: null,
+          className: "text-center",
+          render: function (data, type, row) {
+            return data.wharfage_rate === "0.00" || data.wharfage_rate === null
+              ? ""
+              : `${data.wharfage_rate} F`;
+          },
+        },
+
+        {
+          data: "id",
+          render: function (data) {
+            return `
+                <div class="action-buttons">
+                  <a href="/Client/edit/${data}/" class="btn btn-sm btn-primary">Edit</a>
+                  <a href="/Client/clientdetails/${data}/" class="btn btn-sm btn-info">Details</a>
+                </div>
+              `;
+          },
+        },
+      ],
+    });
+  });
+</script>
+
+{% endblock content %}
