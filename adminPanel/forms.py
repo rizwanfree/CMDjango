@@ -1,6 +1,6 @@
 # forms.py
 from django import forms
-from .models import Item, Port
+from .models import Item, Port, ShippingLine
 
 
 class ItemForm(forms.ModelForm):
@@ -35,6 +35,18 @@ class PortForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'port_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.TextInput(attrs={'class': 'form-control'}),
+            'short_name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
+class ShippingLineForm(forms.ModelForm):
+    class Meta:
+        model = ShippingLine
+        fields = '__all__'
+        widgets = {
+            'line_name': forms.TextInput(attrs={'class': 'form-control'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.TextInput(attrs={'class': 'form-control'}),
             'short_name': forms.TextInput(attrs={'class': 'form-control'}),

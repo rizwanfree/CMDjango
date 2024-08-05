@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<style>
+  .action-buttons {
+    display: flex;
+    gap: 5px; /* Optional: space between buttons */
+  }
+  .action-buttons .btn, a {
+    flex: 1; /* Each button takes up an equal amount of space */
+    text-align: center;
+    
+  }
+</style>
+<div class="mt-5">
+</div>
+
+
+<form method="post" action="">
+  {% csrf_token %}
+  <div class="card border-secondary mb-3" style="max-width: 100%">
+    <div class="card-header">
+      <h4 class="card-title text-center">Shipping Line Information</h4>
+    </div>
+  
+  <div class="row mt-3">
+    <div class="col-8"><label class="form-label">Shipping Line Name</label></div>
+    <div class="col-4"><label class="form-label">Short Name</label></div>
+  </div>
+    <div class="row mt-1">
+    <div class="col-8">{{form.line_name}}</div>
+    <div class="col-4">{{form.short_name}}</div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-4"><label class="form-label">Phone Number</label></div>
+    <div class="col-4"><label class="form-label">Email</label></div>
+  </div>
+    <div class="row mt-1 mb-2">
+    <div class="col-4">{{form.phone_number}}</div>
+    <div class="col-4">{{form.email}}</div>
+    
+    <div class="form-group col-4">
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a class="btn btn-secondary" href="{% url "adminPanel:shipping-list" %}">Cancel</a>
+    </div>
+  </div>
+  
+  
+
+
+
+        <div class="card-footer text-end">
+
+        </div>
+</form>
+</div>
+
+{% endblock content %}
+
+

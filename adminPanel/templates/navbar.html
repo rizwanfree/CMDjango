@@ -2,7 +2,7 @@
 <style>
   /* Sidebar styles */
   .sidebar {
-    position: sticky;
+    position: absulute;
     top: 0;
     bottom: 0;
     left: 0;
@@ -11,6 +11,7 @@
     background-color: #343a40; /* Dark background for Space Dark theme */
     color: #ffffff; /* White text for contrast */
     overflow-y: auto; /* Scrollbar for overflow */
+    border-bottom-left-radius: 6%;
   }
 
   .sidebar .nav-link {
@@ -90,7 +91,7 @@
   }
 </style>
 
-<nav class="sidebar card py-2 mb-4 col-md-2 col-lg-2 d-md-block bg-primary sidebar collapse">
+<nav class="sidebar py-2 mb-4 col-md-2 col-lg-2 d-md-block bg-primary collapse">
 <ul class="nav flex-column" id="nav_accordion">
 	<li class="nav-item">
 		<a class="nav-link" href="#"> Dashboard </a>
@@ -99,21 +100,13 @@
 		<a class="nav-link" href="{% url "client:client-list" %}"> Clients </a>
 	</li>
 	<li class="nav-item has-submenu">
-		<a class="nav-link" href="#"> Submenu links  </a>
-		<ul class="submenu collapse">
-			<li><a class="nav-link" href="#">Submenu item 1 </a></li>
-			<li><a class="nav-link" href="#">Submenu item 2 </a></li>
-			<li><a class="nav-link" href="#">Submenu item 3 </a> </li>
-		</ul>
-	</li>
-	<li class="nav-item has-submenu">
 		<a class="nav-link" href="#"> Setups  </a>
 		<ul class="submenu collapse">
 			<li><a class="nav-link" href="#">Users </a></li>
 			<li><a class="nav-link" href="{% url "adminPanel:item_list" %}">Items </a></li>
       <li><a class="nav-link" href="{% url 'adminPanel:port-list' %}">Ports</a></li>
 			<li><a class="nav-link" href="#">Terminals </a></li>
-			<li><a class="nav-link" href="#">Shipping Lines </a></li>
+			<li><a class="nav-link" href="{% url "adminPanel:shipping-list" %}">Shipping Lines </a></li>
       
 		</ul>
 	</li>
