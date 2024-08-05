@@ -1,22 +1,21 @@
 {% load static %}
+
+<style>
+.centered-block {
+  display: block;
+  margin: 0 auto;
+}
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.2/css/dataTables.dataTables.min.css" />
   </head>
   <body class="d-flex flex-column min-vh-100">
     {% comment %}
@@ -45,7 +44,9 @@
         <!--End Sidebar-->
 
         <main class="col-md-10 ms-sm-auto col-lg-10 px-md-2">
-          {% block content %} {% endblock content %}
+          <div class="centered-block">
+            {% block content %} {% endblock content %}
+          </div>
         </main>
       </div>
     </div>

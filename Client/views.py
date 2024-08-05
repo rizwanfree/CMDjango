@@ -1,7 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .Serializer import ClientDataTableSerializer
 from django.views.decorators.http import require_POST
 from .forms import ClientForm
 
@@ -11,14 +10,6 @@ from django.contrib import messages
 from .models import Client
 
 
-# API CALLS
-
-class ClientDataTableAPI(APIView):
-    def get(self, request):
-        clients = Client.objects.all()
-        serializer = ClientDataTableSerializer(clients, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
 # Create your views here.
 
 def ClientList(request):
@@ -27,6 +18,7 @@ def ClientList(request):
         'clients': clients
     }
     return render(request, 'Client/client_list.html', context)
+
 
 def ClientDetails(request, id):
     client = get_object_or_404(Client, id=id)
@@ -52,7 +44,7 @@ def ClientEdit(request, id=None):
         if form.is_valid():
             form.save()
             messages.success(request, 'Client saved successfully.')
-            return redirect('client:client_list')  # Redirect to a list view or any other view as needed
+            return redirect('client:client-list')  # Redirect to a list view or any other view as needed
 
     context = {
         'form': form,
@@ -61,9 +53,10 @@ def ClientEdit(request, id=None):
     print(id)
     return render(request, 'client/client_edit.html', context)
 
+
 @require_POST
 def DeleteClient(request, pk):
     client = get_object_or_404(Client, pk=pk)
     client.delete()
     messages.success(request, 'Client deleted successfully.')
-    return redirect('client:client_list')  # Redirect to the client list or another appropriate page
+    return redirect('client:client-list')  # Redirect to the client list or another appropriate page

@@ -2,8 +2,6 @@ from django.db import models
 
 from adminPanel.models import City
 
-# Create your models here.
-
 
 class Client(models.Model):
     COMMERCIAL = 'Commercial'

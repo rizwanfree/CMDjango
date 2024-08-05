@@ -3,11 +3,12 @@
 <style>
   .action-buttons {
     display: flex;
-    justify-content: space-around;
+    gap: 5px; /* Optional: space between buttons */
   }
   .action-buttons .btn {
-    flex: 1;
-    margin: 0 2px;
+    flex: 1; /* Each button takes up an equal amount of space */
+    text-align: center;
+    width: 70px;
   }
 </style>
 
@@ -50,7 +51,7 @@
   $(document).ready(function () {
     $("#itemTable").DataTable({
       ajax: {
-        url: "http://127.0.0.1:8000/adminpanel/api/itemlist/",
+        url: "/api/item/table-items/",
         dataSrc: "",
       },
       columns: [
@@ -148,7 +149,7 @@
           render: function (data) {
             return `
                 <div class="action-buttons">
-                  <a href="/adminpanel/edit-item/${data}/" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#addItemModal">Edit</a>
+                  <a href="/adminpanel/edit-item/${data}/" class="btn btn-sm btn-primary">Edit</a>
                   <a href="/adminpanel/item-details/${data}/" class="btn btn-sm btn-info">Details</a>
                 </div>
               `;

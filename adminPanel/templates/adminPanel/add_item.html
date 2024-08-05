@@ -13,9 +13,14 @@
   }
 </style>
 
+
 <div class="container m-5">
-  <div class="card">
-  <h2 class="card-header text-center card-title">Add New Item</h2>
+  <div class="card" style="width: 50rem">
+      {% if id is not None %}
+          <h2 class="card-header text-center card-title"> Update Item </h2>
+      {% else %}
+          <h2 class="card-header text-center card-title"> Add New Item </h2>
+      {% endif %}
   <div class="card-body">
     <form id="addItemForm" method="post">
       {% csrf_token %}
@@ -41,7 +46,7 @@
         <div class="col-6">
           <label class="card-title"><h5>Custom Duty</h5></label>
         </div>
-        <div class="col-1">{{form.custom_duty_type}}</div>
+        <div class="col-3">{{form.custom_duty_type}}</div>
         <div class="col-3">{{form.custom_duty_rate}}</div>
       </div>
 
@@ -65,35 +70,60 @@
         <div class="col-6">
           <label class="card-title"><h5>Sales Tax</h5></label>
         </div>
-        <div class="col-6">{{form.sales_tax_rate}}</div>
+        <div class="col-3">
+          <select class="form-select" disabled>
+            <option>%</option>
+          </select>
+        </div>
+        <div class="col-3">{{form.sales_tax_rate}}</div>
       </div>
 
       <div class="row m-1">
         <div class="col-6">
           <label class="card-title"><h5>Additional Sales Tax</h5></label>
         </div>
-        <div class="col-6">{{form.additional_sales_tax_rate}}</div>
+        <div class="col-3">
+          <select class="form-select" disabled>
+            <option>%</option>
+          </select>
+        </div>
+        <div class="col-3">{{form.additional_sales_tax_rate}}</div>
       </div>
 
       <div class="row m-1">
         <div class="col-6">
           <label class="card-title"><h5>Income Tax</h5> </label>
         </div>
-        <div class="col-6">{{form.income_tax_rate}}</div>
+        <div class="col-3">
+          <select class="form-select" disabled>
+            <option>%</option>
+          </select>
+        </div>
+        <div class="col-3">{{form.income_tax_rate}}</div>
       </div>
 
       <div class="row m-1">
         <div class="col-6">
           <label class="card-title"><h5>PSQCA</h5></label>
         </div>
-        <div class="col-6">{{form.psqc_rate}}</div>
+        <div class="col-3">
+          <select class="form-select" disabled>
+            <option>%</option>
+          </select>
+        </div>
+        <div class="col-3">{{form.psqc_rate}}</div>
       </div>
 
       <div class="row m-1">
         <div class="col-6">
           <label class="card-title"><h5>Wharfage</h5></label>
         </div>
-        <div class="col-6">{{form.wharfage_rate}}</div>
+        <div class="col-3">
+          <select class="form-select" disabled>
+            <option>F</option>
+          </select>
+        </div>
+        <div class="col-3">{{form.wharfage_rate}}</div>
       </div>  
     </div>
     <div class="card-footer">

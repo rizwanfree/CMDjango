@@ -3,13 +3,14 @@
 <style>
   .action-buttons {
     display: flex;
-    justify-content: space-between;
+    gap: 5px; /* Optional: space between buttons */
   }
   .action-buttons .btn {
-    flex: 1;
-    margin: 0 2px;
+    flex: 1; /* Each button takes up an equal amount of space */
+    text-align: center;
+    width: 70px;
   }
-</style>
+  </style>
 
 <div class="mt-5">
   <div class="mb-4">
@@ -36,7 +37,7 @@
   $(document).ready(function () {
     $("#myTable").DataTable({
       ajax: {
-        url: "/Client/api/clients/",
+        url: "/api/client/table-clients/",
         dataSrc: "",
       },
       columns: [
@@ -51,7 +52,7 @@
           render: function (data) {
             return `
                     <div class="action-buttons">
-                        <a href="/Client/edit/${data}/" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="/client/edit/${data}/" class="btn btn-sm btn-primary">Edit</a>
                         <a href="/Client/clientdetails/${data}/" class="btn btn-sm btn-info">Details</a>                        
                     </div>
             `;
