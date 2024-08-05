@@ -1,13 +1,13 @@
 {% extends "base.html" %} {% block content %}
 
-<div class="container">
+<div class="container mt-5">
   <form method="post">
     {% csrf_token %}
     <input type="hidden" />
 
     <div class="card border-secondary mb-3" style="max-width: 100%">
       <div class="card-header">
-        <h4 class="card-title">Client Information</h4>
+        <h4 class="card-title text-center">Client Information</h4>
       </div>
       <div class="card-body">
         <div class="row">
@@ -83,11 +83,12 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary">Save</button>
-      <a class="btn btn-secondary" href="{% url "client:client-list" %}">Cancel</a>
+        <div class="card-footer text-end">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a class="btn btn-secondary" href="{% url "client:client-list" %}">Cancel</a>
+            </div>
+        </div>
     </div>
   </form>
 </div>

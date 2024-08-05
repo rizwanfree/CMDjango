@@ -34,12 +34,9 @@ def ClientEdit(request, id=None):
         # Editing an existing client
         client = get_object_or_404(Client, id=id)
         form = ClientForm(request.POST or None, instance=client)
-        print(id)
     else:
         # Creating a new client
         form = ClientForm(request.POST or None)
-        print(id)
-
     if request.method == 'POST':
         if form.is_valid():
             form.save()
@@ -50,7 +47,6 @@ def ClientEdit(request, id=None):
         'form': form,
         'id': id,
     }
-    print(id)
     return render(request, 'client/client_edit.html', context)
 
 

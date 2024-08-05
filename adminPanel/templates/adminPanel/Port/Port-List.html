@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mt-5">
+  <div class="mb-4">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#portModal" data-action="{% url 'adminPanel:port-add' %}" data-title="Add New Port">
+      Add New Port
+    </button>
+  </div>
+  <table id="myTable" class="table table-primary table-bordered table-hover table-striped">
+    <thead class="text-center">
+      <tr>
+        <th>Port Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Short Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in ports %}
+      <tr>
+        <td>{{ p.port_name }}</td>
+        <td>{{ p.phone_number }}</td>
+        <td>{{ p.email }}</td>
+        <td>{{ p.short_name }}</td>
+        <td>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#portModal"
+                  data-action="{% url 'adminPanel:port-edit' p.id %}"
+                  data-title="Edit Port"
+                  data-name="{{ p.port_name }}"
+                  data-shortname="{{ p.short_name }}"
+                  data-phone="{{ p.phone_number }}"
+                  data-email="{{ p.email }}">
+            Edit
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="portModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="portModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="portModalLabel">Add New Port</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="portForm" action="{% url 'adminPanel:port-add' %}">
+          {% csrf_token %}
+          {{ form.as_p }}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" form="portForm" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- JavaScript to handle modal dynamic content -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var portModal = document.getElementById('portModal');
+    portModal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget;
+      var actionUrl = button.getAttribute('data-action');
+      var modalTitle = button.getAttribute('data-title');
+      var name = button.getAttribute('data-name');
+      var shortName = button.getAttribute('data-shortname');
+      var phone = button.getAttribute('data-phone');
+      var email = button.getAttribute('data-email');
+
+      var modalTitleElement = portModal.querySelector('.modal-title');
+      var form = portModal.querySelector('form');
+      modalTitleElement.textContent = modalTitle;
+      form.setAttribute('action', actionUrl);
+
+      // Pre-fill form fields if editing
+      if (modalTitle === 'Edit Port') {
+        form.querySelector('[name="port_name"]').value = name || '';
+        form.querySelector('[name="short_name"]').value = shortName || '';
+        form.querySelector('[name="phone_number"]').value = phone || '';
+        form.querySelector('[name="email"]').value = email || '';
+      } else {
+        form.reset(); // Clear fields if adding new
+      }
+    });
+  });
+</script>

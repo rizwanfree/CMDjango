@@ -1,7 +1,10 @@
 from django.contrib import messages
 from django.shortcuts import redirect, render, get_object_or_404
-from .models import Item, City
-from .forms import ItemForm
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView
+
+from .models import Item, City, Port
+from .forms import ItemForm, PortForm
 
 
 def Dashboard(request):
@@ -13,39 +16,14 @@ def CityList(request):
     context = {
         'cities': cities,
     }
-    return render(request, 'adminPanel/citylist.html', context)
+    return render(request, 'adminPanel/City/citylist.html', context)
 
 
 def ItemList(request):
-    if request.method == 'POST':
-        item_id = request.POST.Get('item_id')
-        if item_id:  # Update existing item
-            item = get_object_or_404(Item, pk=item_id)
-            form = ItemForm(request.POST, instance=item)
-        else:  # Add new item
-            form = ItemForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('adminPanel:item_list')
-
-    items = Item.objects.all()
-    form = ItemForm()
-    return render(request, 'adminPanel/item_list.html', {'items': items, 'form': form})
+    return render(request, 'adminPanel/Item/item_list.html')
 
 
-def AddItem(request):
-    if request.method == 'POST':
-        form = ItemForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('adminPanel:item_list')  # Redirect to a list view or any other view
-    else:
-        form = ItemForm()
-    return render(request, 'adminPanel/add_item.html', {'form': form})
-
-
-def ClientEdit(request, id=None):
+def ItemEdit(request, id=None):
     if id:
         # Editing an existing client
         item = get_object_or_404(Item, id=id)
@@ -53,15 +31,38 @@ def ClientEdit(request, id=None):
     else:
         # Creating a new client
         form = ItemForm(request.POST or None)
-
     if request.method == 'POST':
         if form.is_valid():
             form.save()
             messages.success(request, 'Item saved successfully.')
             return redirect('adminPanel:item_list')  # Redirect to a list view or any other view as needed
-
     context = {
         'form': form,
         'id': id,
     }
-    return render(request, 'adminPanel/add_item.html', context)
+    return render(request, 'adminPanel/Item/add_item.html', context)
+
+
+class PortListView(ListView):
+    model = Port
+    template_name = 'adminPanel/Port/Port-List.html'
+    context_object_name = 'ports'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = PortForm()  # Empty form for creating new port
+        return context
+
+
+class PortCreateView(CreateView):
+    model = Port
+    form_class = PortForm
+    template_name = 'adminPanel/Port/Port-Form.html'
+    success_url = reverse_lazy('adminPanel:port-list')
+
+
+class PortUpdateView(UpdateView):
+    model = Port
+    form_class = PortForm
+    template_name = 'adminPanel/Port/Port-Form.html'
+    success_url = reverse_lazy('adminPanel:port-list')
