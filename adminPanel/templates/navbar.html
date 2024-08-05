@@ -1,54 +1,159 @@
-<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{% url "adminPanel:Home" %}">Custom Master</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarColor03"
-      aria-controls="navbarColor03"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarColor03">
-      <ul class="navbar-nav me-auto">
-        <!--Settings-->
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            data-bs-toggle="dropdown"
-            href="#"
-            role="button"
-            aria-haspopup="true"
-            aria-expanded="false"
-            >Setups</a
-          >
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Users</a>
-            <a class="dropdown-item" href="#">Terminals</a>
-            <a class="dropdown-item" href="#">Shipping Lines</a>
-            <a class="dropdown-item" href="#">Ports</a>
-            <a class="dropdown-item" href="{% url "adminPanel:item_list" %}">Items</a>
-            <a class="dropdown-item" href="{% url "adminPanel:citylist" %}">Cities</a>
-          </div>
-        </li>
-        <!--End Settings-->
 
-        <!--Clients-->
-        <li class="nav-item">
-          <a class="nav-link" href="{% url "client:client_list" %}">Client Management</a>
-        </li>
-        <!--End Settings-->
+<style>
+  /* Sidebar styles */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Ensures the sidebar is on top */
+    height: 88vh;
+    background-color: #343a40; /* Dark background for Space Dark theme */
+    color: #ffffff; /* White text for contrast */
+    overflow-y: auto; /* Scrollbar for overflow */
+  }
 
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+  .sidebar .nav-link {
+    color: #ffffff; /* White text for links */
+    padding: 10px 15px; /* Padding for better click area */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+  }
+
+  .sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent white background on hover */
+    color: #ffffff; /* White text on hover */
+    text-decoration: none; /* Remove underline on hover */
+  }
+
+  .sidebar .nav-link.active {
+    background-color: #007bff; /* Highlight active link */
+    color: #ffffff; /* White text for active link */
+  }
+
+    .sidebar .dropdown-menu {
+    background-color: #343a40; /* Match the sidebar background */
+    border: none; /* Remove border for a cleaner look */
+    box-shadow: none; /* Remove default shadow */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+  }
+
+  .sidebar .dropdown-item {
+    color: #ffffff; /* White text for dropdown items */
+    padding: 10px 15px; /* Padding for dropdown items */
+    transition: background-color 0.3s; /* Smooth transition for hover effects */
+  }
+
+  .sidebar .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Transparent white background on hover */
+    color: #ffffff; /* White text on hover */
+  }
+
+  .sidebar .dropdown-toggle::after {
+    display: none; /* Hide the default dropdown arrow */
+  }
+
+  .content-area {
+    margin-left: 250px; /* Width of the sidebar */
+    padding: 20px;
+    flex: 1;
+  }
+
+  /* Content area styles */
+  .content-area {
+    margin-left: 250px; /* Width of the sidebar */
+    padding: 20px;
+    flex: 1;
+  }
+
+  /* Footer styles */
+  footer {
+    {% comment %} background-color: #343a40; /* Dark background for the footer */ {% endcomment %}
+    color: #ffffff; /* White text for the footer */
+    padding: 10px 0;
+    text-align: center;
+    height: 5vh;
+  }
+
+  /* Ensure main section and footer are stacked correctly */
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 88vh;
+  }
+
+  .sidebar li .submenu{ 
+	list-style: none; 
+	margin: 0; 
+	padding: 0; 
+	padding-left: 1rem; 
+	padding-right: 1rem;
+}
+</style>
+
+<nav class="sidebar card py-2 mb-4 col-md-2 col-lg-2 d-md-block bg-primary sidebar collapse">
+<ul class="nav flex-column" id="nav_accordion">
+	<li class="nav-item">
+		<a class="nav-link" href="#"> Dashboard </a>
+	</li>
+  <li class="nav-item">
+		<a class="nav-link" href="{% url "client:client_list" %}"> Clients </a>
+	</li>
+	<li class="nav-item has-submenu">
+		<a class="nav-link" href="#"> Submenu links  </a>
+		<ul class="submenu collapse">
+			<li><a class="nav-link" href="#">Submenu item 1 </a></li>
+			<li><a class="nav-link" href="#">Submenu item 2 </a></li>
+			<li><a class="nav-link" href="#">Submenu item 3 </a> </li>
+		</ul>
+	</li>
+	<li class="nav-item has-submenu">
+		<a class="nav-link" href="#"> Setups  </a>
+		<ul class="submenu collapse">
+			<li><a class="nav-link" href="#">Users </a></li>
+			<li><a class="nav-link" href="{% url "adminPanel:item_list" %}">Items </a></li>
+      <li><a class="nav-link" href="#">Ports</a></li>
+			<li><a class="nav-link" href="#">Terminals </a></li>
+			<li><a class="nav-link" href="#">Shipping Lines </a></li>
+      
+		</ul>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#"> Something </a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="#"> Other link </a>
+	</li>
+</ul>
 </nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+  document.querySelectorAll('.sidebar .nav-link').forEach(function(element){
+    
+    element.addEventListener('click', function (e) {
+
+      let nextEl = element.nextElementSibling;
+      let parentEl  = element.parentElement;	
+
+        if(nextEl) {
+            e.preventDefault();	
+            let mycollapse = new bootstrap.Collapse(nextEl);
+            
+            if(nextEl.classList.contains('show')){
+              mycollapse.hide();
+            } else {
+                mycollapse.show();
+                // find other submenus with class=show
+                var opened_submenu = parentEl.parentElement.querySelector('.submenu.show');
+                // if it exists, then close all of them
+                if(opened_submenu){
+                  new bootstrap.Collapse(opened_submenu);
+                }
+            }
+        }
+    }); // addEventListener
+  }) // forEach
+}); 
+</script>

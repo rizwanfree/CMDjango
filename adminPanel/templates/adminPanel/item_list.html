@@ -13,21 +13,9 @@
 
 <div class="mt-5">
   <div class="mb-4">
-    <div class="mb-4">
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#addItemModal"
-      >
-        Add New Item
-      </button>
-    </div>
+    <a class="btn btn-primary" href="{% url "adminPanel:add_item" %}">Add New Item</a>
   </div>
-  <table
-    id="itemTable"
-    class="table table-small table-primary table-bordered table-hover table-striped"
-  >
+  <table id="itemTable" class="table table-small table-primary table-bordered table-hover table-striped">
     <thead>
       <tr>
         <th class="text-center">Description</th>
@@ -47,122 +35,6 @@
   </table>
 </div>
 
-<!-- Add Modal -->
-<div
-  class="modal fade"
-  id="addItemModal"
-  tabindex="-1"
-  aria-labelledby="addItemModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="addItemModalLabel">Add New Item</h4>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        {% comment %} <form
-          id="addItemForm"
-          method="post"
-          action="action="{% if edit_mode %}{% url 'adminPanel:edit_item' item_id %}{% else %}{% url 'adminPanel:add_item' %}{% endif %}"
-        >
-          {% csrf_token %}
-          <input type="hidden" name="item_id" id="item_id" value="{% if edit_mode %}{{ item_id }}{% endif %}" />
-          <div class="row m-1">
-            <div class="col-4">
-              <label class="control-label">Item Name</label>
-            </div>
-            <div class="col-8">{{form.item_name}}</div>
-          </div>
-          <div class="row m-1">
-            <div class="col-4">
-              <label class="control-label">H.S.Code</label>
-            </div>
-            <div class="col-8">{{form.hs_code}}</div>
-          </div>
-
-          <hr />
-          <h5 class="text-center">Duty Structure</h5>
-          <hr />
-
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Custom Duty</label>
-            </div>
-            <div class="col-3">{{form.custom_duty_type}}</div>
-            <div class="col-3">{{form.custom_duty_rate}}</div>
-          </div>
-
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Additional Custom Duty</label>
-            </div>
-            <div class="col-3">{{form.additional_custom_duty_type}}</div>
-            <div class="col-3">{{form.additional_custom_duty_rate}}</div>
-          </div>
-
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Regulatory Duty</label>
-            </div>
-            <div class="col-3">{{form.regulatory_duty_type}}</div>
-            <div class="col-3">{{form.regulatory_duty_rate}}</div>
-          </div>
-
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Sales Tax</label>
-            </div>
-            <div class="col-6">{{form.sales_tax_rate}}</div>
-          </div>
-
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Additional Sales Tax</label>
-            </div>
-            <div class="col-6">{{form.additional_sales_tax_rate}}</div>
-          </div>
-
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Income Tax</label>
-            </div>
-            <div class="col-6">{{form.income_tax_rate}}</div>
-          </div>
-
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">PSQCA</label>
-            </div>
-            <div class="col-6">{{form.psqc_rate}}</div>
-          </div>
-
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Wharfage</label>
-            </div>
-            <div class="col-6">{{form.wharfage_rate}}</div>
-          </div>
-        </form> {% endcomment %}
-        <{% include "adminPanel/add_item.html" %}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="submit" form="addItemForm" class="btn btn-primary">
-          Save changes
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -276,9 +148,8 @@
           render: function (data) {
             return `
                 <div class="action-buttons">
-                  {% comment %} <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal" data-id=${data}> Edit </button> {% endcomment %}
-                  <a href="/adminpanel/edititem/${data}/" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#addItemModal">Details</a>
-                  <a href="/adminpanel/clientdetails/${data}/" class="btn btn-sm btn-info">Details</a>
+                  <a href="/adminpanel/edit-item/${data}/" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#addItemModal">Edit</a>
+                  <a href="/adminpanel/item-details/${data}/" class="btn btn-sm btn-info">Details</a>
                 </div>
               `;
           },
@@ -288,6 +159,4 @@
   });
 </script>
 
-{% comment %}
-<a href="/adminpanel/edititem/${data}/" class="btn btn-sm btn-primary">Edit</a>
-{% endcomment %} {% endblock content %}
+ {% endblock content %}

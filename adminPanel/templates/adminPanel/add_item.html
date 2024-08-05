@@ -1,83 +1,110 @@
-<form
-          id="addItemForm"
-          method="post"
-          action="action="{% if edit_mode %}{% url 'adminPanel:edit_item' 'id' %}{% else %}{% url 'adminPanel:add_item' %}{% endif %}"
-        >
-          {% csrf_token %}
-          <input type="hidden" name="item_id" id="item_id" value="{% if edit_mode %}{{ item_id }}{% endif %}" />
-          <div class="row m-1">
-            <div class="col-4">
-              <label class="control-label">Item Name</label>
-            </div>
-            <div class="col-8">{{form.item_name}}</div>
-          </div>
-          <div class="row m-1">
-            <div class="col-4">
-              <label class="control-label">H.S.Code</label>
-            </div>
-            <div class="col-8">{{form.hs_code}}</div>
-          </div>
+{% extends "base.html" %}
 
-          <hr />
-          <h5 class="text-center">Duty Structure</h5>
-          <hr />
+{% block content %}
 
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Custom Duty</label>
-            </div>
-            <div class="col-3">{{form.custom_duty_type}}</div>
-            <div class="col-3">{{form.custom_duty_rate}}</div>
-          </div>
+<style>
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  .action-buttons .btn {
+    flex: 1;
+    margin: 0 2px;
+  }
+</style>
 
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Additional Custom Duty</label>
-            </div>
-            <div class="col-3">{{form.additional_custom_duty_type}}</div>
-            <div class="col-3">{{form.additional_custom_duty_rate}}</div>
-          </div>
+<div class="container m-5">
+  <div class="card">
+  <h2 class="card-header text-center card-title">Add New Item</h2>
+  <div class="card-body">
+    <form id="addItemForm" method="post">
+      {% csrf_token %}
+      <input type="hidden" />
+      <div class="row m-1">
+        <div class="col-6">
+          <label class="card-title"><h5>Item Name</h5> </label>
+        </div>      
+        <div class="col-6">{{form.item_name}}</div>
+      </div>
+      <div class="row m-1">
+        <div class="col-6">
+          <label class="card-title"><h5>H.S.Code</h5></label>
+        </div>
+        <div class="col-6">{{form.hs_code}}</div>
+      </div>
 
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Regulatory Duty</label>
-            </div>
-            <div class="col-3">{{form.regulatory_duty_type}}</div>
-            <div class="col-3">{{form.regulatory_duty_rate}}</div>
-          </div>
+      <hr />
+      <h5 class="card-title"><h3 class="text-center">Duty Structure</h3></h5>
+      <hr />
 
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Sales Tax</label>
-            </div>
-            <div class="col-6">{{form.sales_tax_rate}}</div>
-          </div>
+      <div class="row m-1">
+        <div class="col-6">
+          <label class="card-title"><h5>Custom Duty</h5></label>
+        </div>
+        <div class="col-1">{{form.custom_duty_type}}</div>
+        <div class="col-3">{{form.custom_duty_rate}}</div>
+      </div>
 
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Additional Sales Tax</label>
-            </div>
-            <div class="col-6">{{form.additional_sales_tax_rate}}</div>
-          </div>
+      <div class="row m-1">
+        <div class="col-6">
+          <label class="card-title"><h5>Additional Custom Duty</h5></label>
+        </div>
+        <div class="col-3">{{form.additional_custom_duty_type}}</div>
+        <div class="col-3">{{form.additional_custom_duty_rate}}</div>
+      </div>
 
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Income Tax</label>
-            </div>
-            <div class="col-6">{{form.income_tax_rate}}</div>
-          </div>
+      <div class="row m-1">
+        <div class="col-6">
+          <label class="card-title"><h5>Regulatory Duty</h5></label>
+        </div>
+        <div class="col-3">{{form.regulatory_duty_type}}</div>
+        <div class="col-3">{{form.regulatory_duty_rate}}</div>
+      </div>
 
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">PSQCA</label>
-            </div>
-            <div class="col-6">{{form.psqc_rate}}</div>
-          </div>
+      <div class="row m-1">
+        <div class="col-6">
+          <label class="card-title"><h5>Sales Tax</h5></label>
+        </div>
+        <div class="col-6">{{form.sales_tax_rate}}</div>
+      </div>
 
-          <div class="row m-1">
-            <div class="col-6">
-              <label class="control-label">Wharfage</label>
-            </div>
-            <div class="col-6">{{form.wharfage_rate}}</div>
-          </div>
-        </form>
+      <div class="row m-1">
+        <div class="col-6">
+          <label class="card-title"><h5>Additional Sales Tax</h5></label>
+        </div>
+        <div class="col-6">{{form.additional_sales_tax_rate}}</div>
+      </div>
+
+      <div class="row m-1">
+        <div class="col-6">
+          <label class="card-title"><h5>Income Tax</h5> </label>
+        </div>
+        <div class="col-6">{{form.income_tax_rate}}</div>
+      </div>
+
+      <div class="row m-1">
+        <div class="col-6">
+          <label class="card-title"><h5>PSQCA</h5></label>
+        </div>
+        <div class="col-6">{{form.psqc_rate}}</div>
+      </div>
+
+      <div class="row m-1">
+        <div class="col-6">
+          <label class="card-title"><h5>Wharfage</h5></label>
+        </div>
+        <div class="col-6">{{form.wharfage_rate}}</div>
+      </div>  
+    </div>
+    <div class="card-footer">
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a class="btn btn-secondary" href="{% url "adminPanel:item_list" %}">Cancel</a>
+        </div>       
+    </div>
+  </form>
+</div>
+
+
+
+{% endblock content %}

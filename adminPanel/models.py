@@ -75,3 +75,6 @@ class Item(models.Model):
 
     def __str__(self):
         return self.item_name
+    
+    def get_absolute_url(self):
+        return f'/edititem/{id}/'

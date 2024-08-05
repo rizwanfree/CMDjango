@@ -11,8 +11,8 @@ urlpatterns = [
     path('citylist/', views.CityList, name='citylist'),
 
     path('itemlist/', views.ItemList, name='item_list'),
-    path('additem/', views.AddItem, name='add_item'),
-    path('edititem/<int:id>', views.AddItem, name='edit_item'),
+    path('add-item/', views.ClientEdit, name='add_item'),
+    path('edit-item/<int:id>/', views.ClientEdit, name='edit_item'),
 
 
 ]
